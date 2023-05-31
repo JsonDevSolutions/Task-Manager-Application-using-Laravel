@@ -53,12 +53,12 @@
 
 - Delete a task: DELETE `/api/v2/tasks/{id}`
 
-## Problem 2: Add Pagination and Sorting
-##### v3 - Basic REST API Pagination and Sorting
-##### Validation Rules : `Title should not be Empty and should not exceed 10 characters.` and `Due Date should be a valid date in the future`
+## Problem 3: Add Pagination and Sorting
+##### v3 - Basic REST API with Pagination and Sorting
+##### Parameters []
 ##### Files `routes/api_v3.php` and `app\Http\Controllers\Api\v3\TaskController.php`
 ### Endpoints
-- Get all tasks: `GET /api/v3/tasks`
+- Get paginated list of task: `GET /api/v3/tasks/?page_number={page_number}&per_page={per_page}&sort_by={sort_by}&sort={sort}`
 
 - Get a single task: `GET /api/v3/tasks/{id}`
 
