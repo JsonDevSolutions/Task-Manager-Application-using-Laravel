@@ -12,8 +12,9 @@ class TaskController extends Controller
 {
     /*
     * Display a listing of the resource(tasks).
-    * optional parameters:  per_page, sort_by, sort
-    * per_page => possible_values (10, 25, 50, 100. Defaults value: 10)
+    * optional parameters:  page_number, per_page, sort_by, sort
+    * page_number => Page number of the paginated task list
+    * per_page => possible values (10, 25, 50, 100. Defaults value: 10)
     * sort_by => possible values ('id', 'title' or 'due_date'. Defaults value: 'id')
     * sort => possible values ('asc', 'desc'. Default value: 'desc')
     */
@@ -94,6 +95,7 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:10',
             'due_date' => 'date|after:today',
+            '_method' => 'in:PUT',
         ]);
 
         if ($validator->fails()) {
