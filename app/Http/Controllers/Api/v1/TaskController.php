@@ -7,68 +7,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Display a listing of the resource (tasks).
     public function index()
     {
         $tasks = Task::all();
-        return $tasks;
+        return response()->json($tasks, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Store a newly created resource in storage.
     public function store(Request $request)
     {
         $task = Task::create($request->all());
         return response()->json($task, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+    // Display the specified resource by id.
     public function show(Task $task)
     {
         return response()->json($task);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+    // Update the specified resource in storage by ID.
     public function update(Request $request, Task $task)
     {
         $task->update($request->all());
@@ -76,12 +35,7 @@ class TaskController extends Controller
         return response()->json($task, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+    // Remove the specified resource from storage by ID.
     public function destroy(Task $task)
     {
         $task->delete();

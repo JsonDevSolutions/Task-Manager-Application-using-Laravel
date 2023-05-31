@@ -10,23 +10,25 @@ use App\Http\Resources\V3\TaskResource;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    * Display a listing of the resource(tasks).
+    * optional parameters:  per_page, sort_by, sort
+    * per_page => possible_values (10, 25, 50, 100. Defaults value: 10)
+    * sort_by => possible values ('id', 'title' or 'due_date'. Defaults value: 'id')
+    * sort => possible values ('asc', 'desc'. Default value: 'desc')
+    */
     public function index(Request $request)
     {
-        // Validate the parameters with specific rules
+        // Validate the parameters with specific rules and custom validation error messages
         $validator = Validator::make($request->all(), 
         [
             'per_page' => 'in:10,25,50,100',
-            'sort_by' => 'in:title,due_date',
+            'sort_by' => 'in:id,title,due_date',
             'sort' => 'in:asc,desc', 
         ], 
         [
             'per_page.in' => "The per_page field possible values are: 10, 25, 50, 100. Defaults value: 10",
-            'sort_by.in' => "The sort_by field must be either 'title' or 'due_date'.",
+            'sort_by.in' => "The sort_by field must be either 'id', 'title' or 'due_date'.",
             'sort.in' => "The sort field must be either 'asc' or 'desc'.",
         ]);
         
@@ -56,17 +58,16 @@ class TaskController extends Controller
         ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    * Store a newly created resource in storage.
+    * Title should not be Empty and should not exceed 10 characters.
+    * Due Date should be a valid date in the future
+    */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:5',
-            'due_date' => 'date|after:today',
+            'title' => 'required|max:10',
+            'due_date' => 'after:today',
         ]);
 
         if ($validator->fails()) {
@@ -77,41 +78,36 @@ class TaskController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+    // Display the specified resource.
     public function show(Task $task)
     {
         return response()->json($task);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    * Update the specified resource in storage by ID.
+    * Title should not be Empty and should not exceed 10 characters.
+    * Due Date should be a valid date in the future
+    */
     public function update(Request $request, Task $task)
     {
-        $task->update($request->all());
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:10',
+            'due_date' => 'date|after:today',
+        ]);
 
-        return response()->json($task, 200);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        } else {
+            $task->update($request->all());
+            return response()->json($task, 200);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
+    // Remove the specified resource from storage by ID.
     public function destroy(Task $task)
     {
         $task->delete();
-
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Task deleted successfully.'], 200);
     }
 }

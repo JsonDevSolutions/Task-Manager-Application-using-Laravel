@@ -13,3 +13,8 @@ use App\Http\Controllers\TaskController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route that displays the view and used the api
+Route::get('/tasks', function(){
+    return view('tasks');
+});
