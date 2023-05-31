@@ -5,8 +5,8 @@ fetchTask();
 $("#btn_save").click(function() {
     $.post($("#save_update_frm").attr("action"), $("#save_update_frm").serialize(), function() {
         // Check if action is for update or not
-        if ($("#method")) {
-            toast_message('success', 'Successfully Saved.');
+        if ($("#method").val() == "PUT") {
+            toast_message('success', 'Successfully Updated.');
             $("#close_modal").click();
         } else {
             $("#alerts").append(`<div class="alert alert-success bg-success text-white p-1" role="alert">Task Successfully saved!</div>`);
@@ -64,7 +64,7 @@ $(document)
             $.post($(this).parent("form").attr("action"), $(this).parent("form").serialize(), function() {
                 toast_message('success', 'Deleted Successfully.');
             });
-            $(this).closest("tr").remove();
+            fetchTask();
         }
     });
     return false;

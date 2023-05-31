@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Task;
+use Carbon\Carbon;
 
 class TasksTableSeeder extends Seeder
 {
@@ -18,13 +19,14 @@ class TasksTableSeeder extends Seeder
         Task::truncate();
 
         $faker = \Faker\Factory::create();
+        $currentDate = Carbon::now();
 
         // And now, let's create a few articles in our database:
         for ($i = 0; $i < 50; $i++) {
             Task::create([
-                'title' => $faker->word,
-                'description' => $faker->text(100),
-                'due_date' => $faker->date(),
+                'title' => $faker->word(10),
+                'description' => $faker->text(50),
+                'due_date' => $currentDate->addDays($i),
             ]);
         }
     }
