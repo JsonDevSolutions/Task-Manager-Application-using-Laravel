@@ -1,4 +1,6 @@
 # SIMPLE TASK MANAGEMENT USING LARAVEL API
+- Task Manager API is develop using PHP Laravel with three versions to demonstrate how REST API works in Laravel, This API will be responsible for managing tasks and must implement the basic CRUD (Create, Read, Update, Delete) operations, data validation, and additional features like pagination and sorting with custom metadata.
+
 ## Video Site Link [visit output demo](https://task-management-api.jsondev-solutions.com/).
 ## Video Demo Link [visit demo](https://youtu.be/QfsQarqoUPs).
 ## Setup and Configuration
