@@ -39,11 +39,11 @@
 
 - Get a single task: `GET /api/v1/tasks/{id}`
 
-- Create a new task: POST `/api/v1/tasks`
+- Create a new task: `POST /api/v1/tasks`
 
-- Update a task: PUT `/api/v1/tasks/{id}`
+- Update a task: `PUT /api/v1/tasks/{id}`
 
-- Delete a task: DELETE `/api/v1/tasks/{id}`
+- Delete a task: `DELETE /api/v1/tasks/{id}`
 
 ## Problem 2: Implement Data Validation
 ##### v2 - Basic REST API with validations
